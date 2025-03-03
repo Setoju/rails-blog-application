@@ -1,0 +1,18 @@
+<div class="d-flex justify-content-center align-items-center">
+  <div class="w-50">
+    <h2 class="text-center mb-4">Sign In</h2>
+    <%= form_with url: sign_in_path, class: "p-4 border rounded shadow-lg" do |form| %>
+        <div class="mb-3">
+            <%= form.label :email, class: "form-label" %>
+            <%= form.email_field :email, class: "form-control", placeholder: "Enter your email" %>
+        </div>
+
+        <div class="mb-3">
+            <%= form.label :password, class: "form-label" %>
+            <%= form.password_field :password, class: "form-control", placeholder: "Enter your password" %>
+        </div>
+
+        <%= form.submit "Sign In", class: "btn btn-primary w-100" %>
+    <% end %>
+  </div>
+</div>

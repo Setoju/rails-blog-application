@@ -1,0 +1,46 @@
+<% if Current.user %>
+  <div class="container mt-5">
+    <!-- Post Creation Form Section -->
+    <div class="card p-4 shadow border-light" style="max-width: 800px; margin: 0 auto;">
+      <h3 class="text-center mb-4 text-primary">Create a New Post</h3>
+      <%= form_with model: @post, url: blog_posts_path do |form| %>
+        <div class="mb-3">
+          <%= form.label :title, class: "form-label" %>
+          <%= form.text_field :title, class: "form-control", placeholder: "Enter title" %>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :body, class: "form-label" %>
+          <%= form.text_area :body, class: "form-control", placeholder: "Tell the world about your story", rows: 5 %>
+        </div>
+
+        <div class="text-center">
+          <%= form.submit "Post", class: "btn btn-primary btn-lg" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<!-- Blog Posts Section -->
+<div class="container mt-5">
+  <h1 class="text-center mb-4 text-info">Recent Blog Posts</h1>
+  <div class="row justify-content-center">
+    <% @blog_posts.each do |blog_post| %>
+      <div class="col-md-12 mb-4">
+        <div class="card shadow-sm border-light">
+          <div class="card-body">
+            <h2 class="card-title text-center mb-3"> <%= blog_post.title %> </h2>
+            <div class="post-body" style="max-height: 200px; overflow-y: auto;">
+              <p class="card-text"> <%= blog_post.body %> </p>
+            </div>
+          </div>
+          <div class="card-footer text-muted d-flex justify-content-between align-items-center">
+            <small class="text-secondary">Posted by: <%= blog_post.user.name %></small>
+            <small class="text-muted"><%= time_ago_in_words(blog_post.created_at) %> ago</small>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
