@@ -6,10 +6,10 @@ class BlogPostsController < ApplicationController
   end
 
   def create
-    @post = BlogPost.new(post_params)
-    @post.user_id = session[:user_id]
+    post = BlogPost.new(post_params)
+    post.user_id = session[:user_id]
 
-    if @post.save
+    if post.save
       redirect_to root_path, notice: 'Successfully posted your content.'
     else
       render :new
@@ -17,9 +17,9 @@ class BlogPostsController < ApplicationController
   end
 
   def update
-    @post = BlogPost.find(params[:id])
+    post = BlogPost.find(params[:id])
 
-    if @post.update(post_params)
+    if post.update(post_params)
       redirect_to profile_path, notice: 'Post updated successfully.'
     else
       render 'profiles/index', alert: 'Error updating post.'
@@ -27,9 +27,9 @@ class BlogPostsController < ApplicationController
   end
 
   def destroy
-    @blog_post = set_blog_post
-    if @blog_post
-      @blog_post.destroy
+    blog_post = set_blog_post
+    if blog_post
+      blog_post.destroy
       flash[:notice] = "Post was successfully deleted."
       redirect_to profile_path
     end
@@ -38,7 +38,7 @@ class BlogPostsController < ApplicationController
   private
 
   def set_blog_post
-    @blog_post = BlogPost.find(params[:id])
+    blog_post = BlogPost.find(params[:id])
   end
 
   def post_params
