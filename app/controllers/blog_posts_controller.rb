@@ -1,5 +1,6 @@
 class BlogPostsController < ApplicationController
   before_action :require_user, except: [:index]
+  before_action :set_blog_post, only: [:update, :destroy]
   
   def index
     @post = BlogPost.new
@@ -18,9 +19,7 @@ class BlogPostsController < ApplicationController
   end
 
   def update
-    post = BlogPost.find(params[:id])
-
-    if post.update(post_params)
+    if @blog_post.update(post_params)
       redirect_to profile_path, notice: 'Post updated successfully.'
     else
       render 'profiles/index', alert: 'Error updating post.'
@@ -28,9 +27,8 @@ class BlogPostsController < ApplicationController
   end
 
   def destroy
-    blog_post = set_blog_post
-    if blog_post
-      blog_post.destroy
+    if @blog_post
+      @blog_post.destroy
       flash[:notice] = "Post was successfully deleted."
       redirect_to profile_path
     end
@@ -39,7 +37,7 @@ class BlogPostsController < ApplicationController
   private
 
   def set_blog_post
-    blog_post = BlogPost.find(params[:id])
+    @blog_post = BlogPost.find(params[:id])
   end
 
   def post_params

@@ -8,5 +8,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_user
+    if Current.user.nil?
+      flash[:alert] = "You must be signed in to view your profile"
+      redirect_to sign_in_path
+    end
+  end
+
   allow_browser versions: :modern
 end
