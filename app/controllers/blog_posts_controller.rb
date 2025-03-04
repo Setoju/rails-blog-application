@@ -26,6 +26,11 @@ class BlogPostsController < ApplicationController
     end
   end
 
+  def search
+    @query = params[:query]
+    @posts = BlogPost.where("title ILIKE ?", "%#{@query}%")
+  end
+
   def destroy
     if @blog_post
       @blog_post.destroy
