@@ -1,5 +1,6 @@
 class BlogPostsController < ApplicationController
-  #TODO: add before action for require_user using except index
+  before_action :require_user, except: [:index]
+  
   def index
     @post = BlogPost.new
     @blog_posts = BlogPost.all
