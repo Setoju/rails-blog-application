@@ -4,7 +4,7 @@ class BlogPostsController < ApplicationController
   
   def index
     @post = BlogPost.new
-    @blog_posts = BlogPost.all
+    @blog_posts = BlogPost.page(params[:page]).per(5)
   end
 
   def create

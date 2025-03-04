@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   root "blog_posts#index"
 
-  resources :blog_posts, only: [:create, :update, :destroy]
+  resources :blog_posts, only: [:index, :create, :update, :destroy]
   get "blog_posts/search", to: "blog_posts#search"
 
   get "sign_up", to: "registrations#new"
