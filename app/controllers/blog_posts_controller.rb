@@ -4,15 +4,23 @@ class BlogPostsController < ApplicationController
   
   def index
     @post = BlogPost.new
-    @blog_posts = BlogPost.page(params[:page]).per(5)
+    @blog_posts = BlogPost.where(published: true).page(params[:page]).per(5)
   end
 
   def create
-    post = BlogPost.new(post_params)
-    post.user_id = session[:user_id]
-
-    if post.save
-      redirect_to root_path, notice: 'Successfully posted your content.'
+    @post = BlogPost.new(post_params)
+    @post.user_id = session[:user_id]
+  
+    if @post.save
+      if params[:blog_post][:scheduled_time].present?
+        scheduled_time = params[:blog_post][:scheduled_time].to_datetime
+        flash[:alert] = "#{scheduled_time}"
+        PublishBlogPostJob.set(wait_until: scheduled_time).perform_later(@post.id)
+        redirect_to root_path, notice: 'Your post is scheduled successfully.'
+      else
+        @post.update(published: true)
+        redirect_to root_path, notice: 'Successfully posted your content.'
+      end
     else
       render :new
     end

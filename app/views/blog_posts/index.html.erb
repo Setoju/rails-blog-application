@@ -14,6 +14,11 @@
           <%= form.text_area :body, class: "form-control", placeholder: "Tell the world about your story", rows: 5 %>
         </div>
 
+        <div class="mb-3">
+          <%= form.label :scheduled_time, "Schedule Post (optional)", class: "form-label" %>
+          <%= form.datetime_local_field :scheduled_time, class: "form-control" %>
+        </div>
+
         <div class="text-center">
           <%= form.submit "Post", class: "btn btn-primary btn-lg" %>
         </div>

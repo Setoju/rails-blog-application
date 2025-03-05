@@ -31,6 +31,9 @@ gem "solid_cable"
 # Pagination gem
 gem 'kaminari'
 
+# Background jobs processor
+gem 'sidekiq'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
