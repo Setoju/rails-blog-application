@@ -1,19 +1,25 @@
 <% if !@blog_posts.nil? && @blog_posts.total_pages > 1 %>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item <%= 'disabled' if @blog_posts.first_page? %>">
-                <%= link_to 'Previous', blog_posts_path(page: @blog_posts.prev_page), class: 'page-link' %>
-            </li>
+  <% if controller_name == 'profiles' %>
+    <% pagination_path = method(:profile_path) %>
+  <% else %>
+    <% pagination_path = method(:blog_posts_path) %>
+  <% end %>
 
-            <% (1..@blog_posts.total_pages).each do |page| %>
-                <li class="page-item <%= 'active' if @blog_posts.current_page == page %>">
-                    <%= link_to page, blog_posts_path(page: page), class: 'page-link' %>
-                </li>
-            <% end %>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item <%= 'disabled' if @blog_posts.first_page? %>">
+        <%= link_to 'Previous', pagination_path.call(page: @blog_posts.prev_page), class: 'page-link' %>
+      </li>
 
-            <li class="page-item <%= 'disabled' if @blog_posts.last_page? %>">
-                <%= link_to 'Next', blog_posts_path(page: @blog_posts.next_page), class: 'page-link' %>
-            </li>
-        </ul>
-    </nav>
+      <% (1..@blog_posts.total_pages).each do |page| %>
+        <li class="page-item <%= 'active' if @blog_posts.current_page == page %>">
+          <%= link_to page, pagination_path.call(page: page), class: 'page-link' %>
+        </li>
+      <% end %>
+
+      <li class="page-item <%= 'disabled' if @blog_posts.last_page? %>">
+        <%= link_to 'Next', pagination_path.call(page: @blog_posts.next_page), class: 'page-link' %>
+      </li>
+    </ul>
+  </nav>
 <% end %>
