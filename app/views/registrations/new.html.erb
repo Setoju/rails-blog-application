@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-center align-items-center">
   <div class="w-50">
-    <h2 class="text-center mb-4">Sign Up</h2>
+    <h2 class="text-center mb-4">Sign Up</h2>    
     <% if @user.errors.any? %>
         <div class="alert alert-danger">
             <%= @user.errors.full_messages.each.first %>

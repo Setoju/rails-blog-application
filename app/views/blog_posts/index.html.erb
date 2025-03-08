@@ -15,7 +15,7 @@
         </div>
 
         <div class="mb-3">
-          <%= form.label :scheduled_time, "Schedule Post (optional)", class: "form-label" %>
+          <%= form.label :scheduled_time, "Schedule Post (optional)(UTC time, convert to your time zone before submiting)", class: "form-label" %>
           <%= form.datetime_local_field :scheduled_time, class: "form-control" %>
         </div>
 
