@@ -36,7 +36,7 @@ class BlogPostsController < ApplicationController
 
   def search
     @query = params[:query]
-    @posts = BlogPost.where("title ILIKE ?", "%#{@query}%")
+    @blog_posts = BlogPost.where("title ILIKE ?", "%#{@query}%").where(published: true).page(params[:page]).per(5)
   end
 
   def destroy

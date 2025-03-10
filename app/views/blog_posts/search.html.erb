@@ -1,9 +1,9 @@
 <div class="container mt-5">
   <h1 class="text-center mb-4 text-info">Search Results for "<%= @query %>"</h1>
 
-  <% if @posts.any? %>
+  <% if @blog_posts.any? %>
     <div class="row justify-content-center">
-      <% @posts.each do |post| %>
+      <% @blog_posts.each do |post| %>
         <div class="col-md-12 mb-4">
           <div class="card shadow-sm border-light">
             <div class="card-body">

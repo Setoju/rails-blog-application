@@ -1,6 +1,8 @@
 <% if !@blog_posts.nil? && @blog_posts.total_pages > 1 %>
   <% if controller_name == 'profiles' %>
     <% pagination_path = method(:profile_path) %>
+  <% elsif controller_name == 'blog_posts' && action_name == 'search' %>
+    <% pagination_path = ->(params) { search_blog_posts_path(params.merge(query: @query)) } %>
   <% else %>
     <% pagination_path = method(:blog_posts_path) %>
   <% end %>
