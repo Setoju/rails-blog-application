@@ -13,10 +13,10 @@ class BlogPostsController < ApplicationController
   
     if @post.save
       if params[:blog_post][:scheduled_time].present?
-        scheduled_time = params[:blog_post][:scheduled_time].to_datetime
-        flash[:alert] = "#{scheduled_time}"
-        PublishBlogPostJob.set(wait_until: scheduled_time).perform_later(@post.id)
-        redirect_to root_path, notice: 'Your post is scheduled successfully.'
+        local_time = params[:blog_post][:scheduled_time].to_time.utc
+        
+        PublishBlogPostJob.set(wait_until: local_time).perform_later(@post.id)
+        redirect_to root_path, notice: "Your post will be published at #{params[:blog_post][:scheduled_time]} (your local time)"
       else
         @post.update(published: true)
         redirect_to root_path, notice: 'Successfully posted your content.'
