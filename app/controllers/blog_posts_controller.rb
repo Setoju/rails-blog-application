@@ -28,7 +28,7 @@ class BlogPostsController < ApplicationController
 
   def update
     if @blog_post.update(post_params)
-      redirect_to profile_path, notice: 'Post updated successfully.'
+      redirect_to profile_path(page: params[:page]), notice: 'Post updated successfully.'
     else
       render 'profiles/index', alert: 'Error updating post.'
     end
