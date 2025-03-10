@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   root "blog_posts#index"
 
-  resources :blog_posts, only: [:index, :create, :update, :destroy] do
+  resources :blog_posts, only: [ :index, :create, :update, :destroy ] do
     get "search", on: :collection, as: :search
   end
 
