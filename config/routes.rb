@@ -5,8 +5,14 @@ Rails.application.routes.draw do
 
   root "blog_posts#index"
 
-  resources :blog_posts, only: [ :index, :create, :update, :destroy ] do
-    get "search", on: :collection, as: :search
+  resources :blog_posts, only: [:index, :create, :update, :destroy] do
+    member do
+      post 'like'
+      delete 'unlike'
+    end
+    collection do
+      get 'search', as: :search
+    end
   end
 
   get "sign_up", to: "registrations#new"

@@ -1,0 +1,14 @@
+<div id="like-button-<%= blog_post.id %>">
+  <% if Current.user %>
+    <% if blog_post.liked_by?(Current.user) %>
+      <%= button_to unlike_blog_post_path(blog_post), method: :delete, class: "btn btn-link p-0", data: { turbo: true } do %>
+        <i class="fas fa-heart text-danger"></i>
+      <% end %>
+    <% else %>
+      <%= button_to like_blog_post_path(blog_post), method: :post, class: "btn btn-link p-0", data: { turbo: true } do %>
+        <i class="far fa-heart"></i>
+      <% end %>
+    <% end %>
+    <small class="text-muted"><%= blog_post.likes.count %> likes</small>
+  <% end %>
+</div>

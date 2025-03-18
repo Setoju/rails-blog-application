@@ -1,6 +1,6 @@
 class BlogPostsController < ApplicationController
   before_action :require_user, except: [ :index ]
-  before_action :set_blog_post, only: [ :update, :destroy ]
+  before_action :set_blog_post, only: [ :update, :destroy, :like, :unlike ]
 
   def index
     @post = BlogPost.new
@@ -44,6 +44,26 @@ class BlogPostsController < ApplicationController
       @blog_post.destroy
       flash[:notice] = "Post was successfully deleted."
       redirect_to profile_path
+    end
+  end
+
+  def like
+    like = @blog_post.likes.build(user: Current.user)
+    if like.save
+      redirect_back(fallback_location: root_path)
+    else
+      flash[:alert] = "Unable to like the post"
+      redirect_back(fallback_location: root_path)
+    end
+  end
+
+  def unlike
+    like = @blog_post.likes.find_by(user: Current.user)
+    if like&.destroy
+      redirect_back(fallback_location: root_path)
+    else
+      flash[:alert] = "Unable to unlike the post"
+      redirect_back(fallback_location: root_path)
     end
   end
 
