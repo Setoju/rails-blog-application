@@ -35,7 +35,12 @@
       <div class="col-md-12 mb-4">
         <div class="card shadow border-0" style="border-radius: 15px;">
           <div class="card-body">
-            <h2 class="card-title text-center mb-3 fw-bold text-dark"> <%= blog_post.title %> </h2>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h2 class="card-title fw-bold text-dark mb-0"> <%= blog_post.title %> </h2>
+              <small class="text-muted">
+                <i class="far fa-calendar-alt me-1"></i><%= blog_post.created_at.strftime("%b %d, %Y") %>
+              </small>
+            </div>
             <div class="post-body bg-light p-4 rounded-3" style="max-height: 200px; overflow-y: auto;">
               <p class="card-text lead text-secondary"> <%= blog_post.body %> </p>
             </div>
@@ -45,7 +50,9 @@
             <button class="btn btn-link text-secondary border-0 p-0" data-bs-toggle="modal" data-bs-target="#commentsModal<%= blog_post.id %>">
               <i class="far fa-comments me-1"></i>Comments (<%= blog_post.comments.count %>)
             </button>
-            <small class="text-secondary"><i class="far fa-user me-1"></i><%= blog_post.user.name %></small>
+            <small class="text-secondary">
+              <i class="far fa-user me-1"></i><%= blog_post.user.name %>
+            </small>
           </div>
           
           <!-- Comments Modal -->
