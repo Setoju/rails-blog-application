@@ -8,3 +8,66 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+.hover-shadow {
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+.hover-shadow:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+  transform: translateY(-2px);
+}
+
+.hover-underline:hover {
+  text-decoration: underline !important;
+}
+
+.transition-shadow {
+  transition: all 0.3s ease;
+}
+
+.btn-link {
+  text-decoration: none;
+}
+
+.btn-link:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+.comment {
+  transition: transform 0.2s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.comment:hover {
+  transform: translateX(5px);
+  background-color: #f8f9fa !important;
+}
+
+.card {
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.post-body {
+  background-color: #f8f9fa !important;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.modal-content {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  background-color: #f8f9fa;
+  border-radius: 15px 15px 0 0;
+}
+
+.modal-body {
+  max-height: 70vh;
+  overflow-y: auto;
+}
