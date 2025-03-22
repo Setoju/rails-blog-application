@@ -31,88 +31,9 @@
 <div class="container mt-5">
   <h1 class="text-center mb-4 text-info">Recent Blog Posts</h1>
   <div class="row justify-content-center">
-    <% @blog_posts.each do |blog_post| %>
-      <div class="col-md-12 mb-4">
-        <div class="card shadow border-0" style="border-radius: 15px;">
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <h2 class="card-title fw-bold text-dark mb-0"> <%= blog_post.title %> </h2>
-              <small class="text-muted">
-                <i class="far fa-calendar-alt me-1"></i><%= blog_post.created_at.strftime("%b %d, %Y") %>
-              </small>
-            </div>
-            <div class="post-body bg-light p-4 rounded-3" style="max-height: 200px; overflow-y: auto;">
-              <p class="card-text lead text-secondary"> <%= blog_post.body %> </p>
-            </div>
-          </div>
-          <div class="card-footer d-flex justify-content-between align-items-center bg-white border-top">
-            <%= render 'like_button', blog_post: blog_post %>
-            <button class="btn btn-link text-secondary border-0 p-0" data-bs-toggle="modal" data-bs-target="#commentsModal<%= blog_post.id %>">
-              <i class="far fa-comments me-1"></i>Comments (<%= blog_post.comments.count %>)
-            </button>
-            <small class="text-secondary">
-              <i class="far fa-user me-1"></i><%= blog_post.user.name %>
-            </small>
-          </div>
-          
-          <!-- Comments Modal -->
-          <div class="modal fade" id="commentsModal<%= blog_post.id %>" tabindex="-1" aria-labelledby="commentsModalLabel<%= blog_post.id %>" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-              <div class="modal-content">
-                <div class="modal-header border-0">
-                  <h5 class="modal-title" id="commentsModalLabel<%= blog_post.id %>">
-                    Comments on "<%= blog_post.title %>"
-                  </h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <!-- Display existing comments -->
-                  <div class="comments-list mb-3">
-                    <% if blog_post.comments.any? %>
-                      <% blog_post.comments.each do |comment| %>
-                        <div class="comment mb-3 p-3 bg-light rounded">
-                          <div class="d-flex justify-content-between align-items-center mb-2">
-                            <strong class="text-dark"><i class="far fa-user-circle me-1"></i><%= comment.author_name %></strong>
-                            <small class="text-muted"><i class="far fa-clock me-1"></i><%= time_ago_in_words(comment.created_at) %> ago</small>
-                          </div>
-                          <p class="mb-2 text-dark"><%= comment.content %></p>
-                          <% if Current.user && Current.user.name == comment.author_name %>
-                            <%= button_to blog_post_comment_path(blog_post, comment),
-                                method: :delete,
-                                class: 'btn btn-link text-danger p-0 border-0',
-                                form: { style: 'display: inline-block' },
-                                data: { confirm: 'Are you sure?' } do %>
-                                <i class="far fa-trash-alt me-1"></i>Delete
-                            <% end %>
-                          <% end %>
-                        </div>
-                      <% end %>
-                    <% else %>
-                      <p class="text-muted text-center">No comments yet. Be the first to comment!</p>
-                    <% end %>
-                  </div>
-
-                  <!-- Comment form -->
-                  <% if Current.user %>
-                    <%= form_with(model: [blog_post, Comment.new], local: true, class: 'mt-4') do |f| %>
-                      <%= f.hidden_field :author_name, value: Current.user.name %>
-                      <div class="form-group">
-                        <%= f.text_area :content, class: 'form-control mb-2', 
-                            placeholder: 'Share your thoughts...', rows: 3 %>
-                      </div>
-                      <%= f.submit 'Post Comment', class: 'btn btn-primary rounded-pill px-4' %>
-                    <% end %>
-                  <% else %>
-                    <p class="text-muted text-center">
-                      Please <%= link_to "sign in", sign_in_path, class: "text-primary text-decoration-none fw-bold hover-underline" %> to comment.
-                    </p>
-                  <% end %>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <% @blog_posts.each do |post| %>
+      <%= render 'post_card', post: post %>
+      <%= render 'comments_modal', post: post %>
     <% end %>
   </div>
 </div>

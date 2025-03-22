@@ -1,0 +1,16 @@
+<div class="comment mb-3 p-3 bg-light rounded">
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <strong class="text-dark"><i class="far fa-user-circle me-1"></i><%= comment.author_name %></strong>
+    <small class="text-muted"><i class="far fa-clock me-1"></i><%= time_ago_in_words(comment.created_at) %> ago</small>
+  </div>
+  <p class="mb-2 text-dark"><%= comment.content %></p>
+  <% if Current.user && (Current.user.name == comment.author_name || Current.user.id == post.user_id) %>
+    <%= button_to blog_post_comment_path(post, comment),
+        method: :delete,
+        class: 'btn btn-link text-danger p-0 border-0',
+        form: { style: 'display: inline-block' },
+        data: { confirm: 'Are you sure?' } do %>
+        <i class="far fa-trash-alt me-1"></i>Delete
+    <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,14 @@
+<% if Current.user %>
+  <%= form_with(model: [post, Comment.new], local: true, class: 'mt-4') do |f| %>
+    <%= f.hidden_field :author_name, value: Current.user.name %>
+    <div class="form-group">
+      <%= f.text_area :content, class: 'form-control mb-2', 
+          placeholder: 'Share your thoughts...', rows: 3 %>
+    </div>
+    <%= f.submit 'Post Comment', class: 'btn btn-primary rounded-pill px-4' %>
+  <% end %>
+<% else %>
+  <p class="text-muted text-center">
+    Please <%= link_to "sign in", sign_in_path, class: "text-primary text-decoration-none fw-bold hover-underline" %> to comment.
+  </p>
+<% end %>
