@@ -10,6 +10,7 @@ class BlogPostsController < ApplicationController
   def create
     @post = BlogPost.new(post_params)
     @post.user_id = session[:user_id]
+    @blog_posts = BlogPost.where(published: true).page(params[:page]).per(5)
 
     if @post.save
       if params[:blog_post][:scheduled_time].present?
@@ -22,7 +23,7 @@ class BlogPostsController < ApplicationController
         redirect_to root_path, notice: "Successfully posted your content."
       end
     else
-      render :new
+      render :index, status: :unprocessable_entity
     end
   end
 
@@ -78,6 +79,6 @@ class BlogPostsController < ApplicationController
   end
 
   def post_params
-    params.require(:blog_post).permit(:title, :body)
+    params.require(:blog_post).permit(:title, :body, :audio)
   end
 end
