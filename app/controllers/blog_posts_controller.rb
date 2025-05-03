@@ -1,5 +1,5 @@
 class BlogPostsController < ApplicationController
-  before_action :require_user, except: [ :index ]
+  before_action :require_user, except: [ :index, :search ]
   before_action :set_blog_post, only: [ :update, :destroy, :like, :unlike ]
 
   def index
