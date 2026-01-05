@@ -14,8 +14,20 @@
         <%= link_to 'Sign up', sign_up_path, class: 'navbar-brand text-dark' %>
         <%= link_to 'Sign in', sign_in_path, class: 'navbar-brand text-dark' %>
       <% end %>
-      <form class="d-flex align-items-center" role="search" method="get" action="/blog_posts/search">
-        <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
+      <form class="d-flex align-items-center" role="search" method="get" action="<%= content_for?(:search_user_scope) ? profile_path : search_blog_posts_path %>">
+        <input
+          class="form-control me-2"
+          type="search"
+          name="query"
+          placeholder="Search"
+          aria-label="Search"
+          value="<%= params[:query] %>"
+        >
+
+        <% if content_for?(:search_user_scope) %>
+          <input type="hidden" name="user_id" value="<%= yield :search_user_scope %>">
+        <% end %>
+
         <button class="btn btn-outline-dark" type="submit">Search</button>
       </form>
     </div>

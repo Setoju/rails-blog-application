@@ -37,11 +37,13 @@ class BlogPostsController < ApplicationController
 
   def search
     @query = params[:query]
+
     @blog_posts = BlogPost.includes(:likes, :comments)
-                         .where("title ILIKE ?", "%#{@query}%")
-                         .where(published: true)
-                         .page(params[:page])
-                         .per(5)
+                          .published_only
+                          .search(@query)
+                          .by_user(params[:user_id])
+                          .page(params[:page])
+                          .per(5)
   end
 
   def destroy
