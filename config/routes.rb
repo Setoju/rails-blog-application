@@ -6,13 +6,13 @@ Rails.application.routes.draw do
   root "blog_posts#index"
 
   resources :blog_posts do
-    resources :comments, only: [:create, :destroy]
+    resources :comments, only: [ :create, :destroy ]
     member do
-      post 'like'
-      delete 'unlike'
+      post "like"
+      delete "unlike"
     end
     collection do
-      get 'search', as: :search
+      get "search", as: :search
     end
   end
 

@@ -7,7 +7,7 @@ class BlogPost < ApplicationRecord
 
     validates :title, presence: true
     validates :body, presence: true
-    validates :audio, content_type: ['audio/mpeg', 'audio/x-wav'], allow_nil: true
+    validates :audio, content_type: [ "audio/mpeg", "audio/x-wav" ], allow_nil: true
 
     def liked_by?(user)
       likes.exists?(user_id: user.id)

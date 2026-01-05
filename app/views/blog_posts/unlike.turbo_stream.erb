@@ -1,0 +1,5 @@
+<%= turbo_stream.replace(
+  "like-button-#{@blog_post.id}",
+  partial: "blog_posts/like_button",
+  locals: { blog_post: @blog_post }
+) %>

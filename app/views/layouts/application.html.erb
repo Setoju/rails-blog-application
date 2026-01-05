@@ -25,6 +25,9 @@
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
 
+    <%# Load importmap-managed JavaScript (Turbo + Stimulus) %>
+    <%= javascript_importmap_tags %>
+
   <body>
     <%= render partial: "shared/navbar" %>
 

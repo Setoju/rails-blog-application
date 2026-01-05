@@ -55,7 +55,10 @@ class BlogPostsController < ApplicationController
   def like
     like = @blog_post.likes.build(user: Current.user)
     if like.save
-      redirect_back(fallback_location: root_path)
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_back(fallback_location: root_path) }
+      end
     else
       flash[:alert] = "Unable to like the post"
       redirect_back(fallback_location: root_path)
@@ -65,7 +68,10 @@ class BlogPostsController < ApplicationController
   def unlike
     like = @blog_post.likes.find_by(user: Current.user)
     if like&.destroy
-      redirect_back(fallback_location: root_path)
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_back(fallback_location: root_path) }
+      end
     else
       flash[:alert] = "Unable to unlike the post"
       redirect_back(fallback_location: root_path)
